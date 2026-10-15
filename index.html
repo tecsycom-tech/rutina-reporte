@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Procesador Macro BDWIN · Telefonos & Tipificaciones WIN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  
+  /* Brand colors: Claros y Profesionales */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+  
+  --accent-win: #0284c7;
+  
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-border: #a7f3d0;
+  
+  --error: #ef4444;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 20px -2px rgba(37, 99, 235, 0.08);
+  --shadow-lg: 0 10px 30px -4px rgba(15, 23, 42, 0.08);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background-color: var(--bg-page);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.05) 0px, transparent 50%);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header-bar {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #2563eb, #0284c7);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  flex-shrink: 0;
+}
+.brand-title h1 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+.brand-title p {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--accent-win);
+  letter-spacing: -0.01em;
+}
+
+/* Container */
+.wrap {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  flex: 1;
+}
+
+/* Card */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+/* Drag & Drop Zone */
+.drop {
+  border: 2px dashed var(--primary-border);
+  border-radius: var(--radius-md);
+  background: var(--primary-light);
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.drop:hover, .drop.on {
+  border-color: var(--primary);
+  background: #e0e7ff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.drop-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+.drop b {
+  font-size: 16px;
+  color: var(--text-main);
+  font-weight: 700;
+}
+.drop small {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* File Selected State */
+.file {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background: #f1f5f9;
+  border: 1px solid var(--border-light);
+}
+.file.show { display: flex; }
+.file-ic {
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+}
+.file span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 14px;
+}
+.file em {
+  font-style: normal;
+  color: var(--text-muted);
+  font-size: 13px;
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+  font-weight: 600;
+}
+
+/* Option Selectors */
+.opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+.opt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+.opt:hover {
+  border-color: var(--primary-border);
+  background: #fafafa;
+}
+.opt input {
+  margin-top: 3px;
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.opt b {
+  display: block;
+  font-size: 14px;
+  color: var(--text-main);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.opt small {
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.4;
+  display: block;
+}
+
+/* Buttons */
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+button {
+  font-family: inherit;
+  border: 0;
+  border-radius: var(--radius-md);
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.pri {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  width: 100%;
+}
+.pri:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+.pri:disabled {
+  background: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+.ok {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+  width: 100%;
+}
+.ok:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* Progress & Logging */
+.card-header-status {
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 16px 0 12px;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #3b82f6, #0284c7);
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+#msg {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  font-weight: 500;
+  min-height: 20px;
+}
+.log {
+  margin: 14px 0 0;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid var(--border-light);
+  list-style: none;
+  font-size: 13px;
+  color: var(--text-muted);
+  max-height: 160px;
+  overflow-y: auto;
+}
+.log li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.log li:last-child { margin-bottom: 0; }
+.log li::before {
+  content: "✓";
+  color: var(--success);
+  font-weight: 800;
+}
+
+/* Stats Results */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.st {
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+.st h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #065f46;
+  font-weight: 700;
+}
+.st p {
+  margin: 3px 0;
+  font-size: 13.5px;
+  color: #047857;
+}
+
+/* Error message */
+.err {
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  color: var(--error);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-top: 16px;
+  font-weight: 600;
+  font-size: 13.5px;
+}
+
+.hide { display: none !important; }
+
+/* Footer */
+.foot {
+  color: var(--text-muted);
+  font-size: 13px;
+  text-align: center;
+  margin-top: auto;
+  line-height: 1.6;
+}
+
+@media(max-width: 640px) {
+  .opts, .stats { grid-template-columns: 1fr; }
+  .wrap { padding: 20px 14px 40px; }
+  .card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Encabezado con Icono y Título Solicitados -->
+<header class="header-bar">
+  <div class="header-content">
+    <div class="brand-icon">
+      <!-- Icono vectorial referente a procesamiento de macros y datos WIN -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <path d="M8 13h2"/>
+        <path d="M8 17h8"/>
+        <path d="M14 13h2"/>
+      </svg>
+    </div>
+    <div class="brand-title">
+      <h1>Procesador Macro BDWIN</h1>
+      <p>Telefonos & Tipificaciones WIN</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- Tarjeta principal de selección/carga -->
+  <div class="card">
+    <div class="drop" id="drop">
+      <div class="drop-icon-wrapper">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <b>Arrastra tu archivo .xlsx aquí</b>
+      <small>o haz clic para explorarlo desde tu dispositivo</small>
+    </div>
+
+    <input type="file" id="inp" accept=".xlsx,.xlsm" class="hide">
+
+    <div class="file" id="fi">
+      <div class="file-ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <span id="fn"></span>
+      <em id="fs"></em>
+    </div>
+
+    <div class="opts">
+      <label class="opt">
+        <input type="checkbox" id="cT" checked>
+        <div>
+          <b>Macro Telefonos</b>
+          <small>Procesa Hoja Telefonos · Columnas L:Y</small>
+        </div>
+      </label>
+      <label class="opt">
+        <input type="checkbox" id="cW" checked>
+        <div>
+          <b>Macro Tipificaciones</b>
+          <small>Procesa Hoja Tipificacaciones_WIN · A, B y D:T</small>
+        </div>
+      </label>
+    </div>
+
+    <div class="row">
+      <button class="pri" id="go" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Procesar archivo
+      </button>
+    </div>
+
+    <div id="er" class="err hide"></div>
+  </div>
+
+  <!-- Tarjeta de Progreso -->
+  <div class="card hide" id="pc">
+    <div class="card-header-status">
+      <svg class="spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      Procesando macros...
+    </div>
+    <div class="bar"><i id="pb"></i></div>
+    <div id="msg"></div>
+    <ul class="log" id="lg"></ul>
+  </div>
+
+  <!-- Tarjeta de Resultado/Descarga -->
+  <div class="card hide" id="rc">
+    <div class="card-header-status" style="color: #10b981;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Proceso completado con éxito
+    </div>
+    <div class="stats" id="stats" style="margin-top: 14px;"></div>
+    <div class="row">
+      <button class="ok" id="dl">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar Excel procesado
+      </button>
+    </div>
+  </div>
+
+  <div class="foot">
+    Todo el procedimiento se realiza de forma local en tu navegador sin subir el archivo a ningún servidor.<br>
+    Los resultados se escriben directamente como valores desde la fila 2.
+  </div>
+
+</div>
+
+<!-- Carga de fflate mantenida intacta -->
+<script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
+
+<!-- MANTENIMIENTO INTEGRO DE LA LOGICA JS EXACTA -->
+<script>
+const $=s=>document.querySelector(s), tick=()=>new Promise(r=>setTimeout(r,30));
+const dec=new TextDecoder(), enc=new TextEncoder();
+const u16=(d,o)=>d[o]|d[o+1]<<8, u32=(d,o)=>(d[o]|d[o+1]<<8|d[o+2]<<16|d[o+3]<<24)>>>0;
+
+/* ---------- ZIP ---------- */
+function readZip(d){
+  let e=d.length-22; while(e>=0&&u32(d,e)!==0x06054b50)e--;
+  if(e<0)throw new Error('El archivo no es un .xlsx válido.');
+  const n=u16(d,e+10); let p=u32(d,e+16); const l=[];
+  for(let i=0;i<n;i++){
+    const nl=u16(d,p+28),el=u16(d,p+30),cm=u16(d,p+32),len=46+nl+el+cm;
+    l.push({name:dec.decode(d.subarray(p+46,p+46+nl)),flags:u16(d,p+8),method:u16(d,p+10),csize:u32(d,p+20),off:u32(d,p+42),cd:d.slice(p,p+len)});
+    p+=len;
+  }
+  return l;
+}
+const dStart=(d,e)=>e.off+30+u16(d,e.off+26)+u16(d,e.off+28);
+const dataOf=(d,e)=>{const s=dStart(d,e);return d.subarray(s,s+e.csize)};
+const rawOf=(d,e)=>{let end=dStart(d,e)+e.csize;if(e.flags&8)end+=u32(d,end)===0x08074b50?16:12;return d.subarray(e.off,end)};
+const text=(d,e)=>dec.decode(e.method===8?fflate.inflateSync(dataOf(d,e)):dataOf(d,e));
+const CT=new Uint32Array(256).map((_,n)=>{for(let k=0;k<8;k++)n=n&1?0xEDB88320^n>>>1:n>>>1;return n>>>0});
+const crc32=b=>{let c=-1;for(let i=0;i<b.length;i++)c=CT[(c^b[i])&255]^c>>>8;return(c^-1)>>>0};
+function buildZip(d,list,repl,drop){
+  const parts=[],cds=[];let off=0;
+  for(const e of list){
+    if(drop.has(e.name))continue;
+    const cd=e.cd.slice(),c=new DataView(cd.buffer);let loc;
+    if(repl.has(e.name)){
+      const raw=repl.get(e.name),comp=fflate.deflateSync(raw,{level:4}),nm=enc.encode(e.name);
+      loc=new Uint8Array(30+nm.length+comp.length);const v=new DataView(loc.buffer);
+      v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(8,8,true);v.setUint16(12,0x21,true);
+      v.setUint32(14,crc32(raw),true);v.setUint32(18,comp.length,true);v.setUint32(22,raw.length,true);v.setUint16(26,nm.length,true);
+      loc.set(nm,30);loc.set(comp,30+nm.length);
+      c.setUint16(8,0,true);c.setUint16(10,8,true);c.setUint32(16,crc32(raw),true);c.setUint32(20,comp.length,true);c.setUint32(24,raw.length,true);
+    }else loc=rawOf(d,e);
+    c.setUint32(42,off,true);parts.push(loc);cds.push(cd);off+=loc.length;
+  }
+  const cs=cds.reduce((a,x)=>a+x.length,0),eo=new Uint8Array(22),v=new DataView(eo.buffer);
+  v.setUint32(0,0x06054b50,true);v.setUint16(8,cds.length,true);v.setUint16(10,cds.length,true);v.setUint32(12,cs,true);v.setUint32(16,off,true);
+  return new Blob([...parts,...cds,eo],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+
+/* ---------- XML de hojas ---------- */
+const ROW=/<row\b[^>]*?(?:\/>|>[\s\S]*?<\/row>)/g, CELL=/<c r="([A-Z]+)\d+"[^>]*?(?:\/>|>[\s\S]*?<\/c>)/g;
+const ci=s=>{let n=0;for(const c of s)n=n*26+c.charCodeAt(0)-64;return n};
+const cl=n=>{let s='';while(n>0){const m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=(n-m-1)/26}return s};
+const unesc=s=>s.indexOf('&')<0?s:s.replace(/&(#x?[0-9a-fA-F]+|amp|lt|gt|quot|apos);/g,(_,k)=>k[0]=='#'?String.fromCodePoint(k[1]=='x'?parseInt(k.slice(2),16):+k.slice(1)):({amp:'&',lt:'<',gt:'>',quot:'"',apos:"'"})[k]);
+const esc=s=>String(s).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+let SST=[];
+function cellVal(at,inner){
+  if(!inner)return;
+  const t=(/\bt="(\w+)"/.exec(at)||[])[1];
+  if(t==='inlineStr'){let s='';inner.replace(/<t[^>]*>([^<]*)<\/t>/g,(_,x)=>s+=x);return unesc(s)}
+  const m=/<v>([^<]*)<\/v>/.exec(inner);if(!m)return;const v=m[1];
+  if(t==='s')return SST[+v];if(t==='str'||t==='d')return unesc(v);
+  if(t==='b')return v==='1';if(t==='e')return{e:v};
+  return v===''?undefined:+v;
+}
+function rowCells(x,max){
+  const r=+/^<row\b[^>]*?\br="(\d+)"/.exec(x)[1],a=[];
+  for(const m of x.matchAll(/<c r="([A-Z]+)\d+"([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)){const c=ci(m[1]);if(c<=max)a[c]=cellVal(m[2],m[3])}
+  return[r,a];
+}
+function streamRows(d,e,cb){
+  const td=new TextDecoder(),re=new RegExp(ROW.source,'g');let buf='';
+  const feed=(c,fin)=>{buf+=td.decode(c,{stream:!fin});re.lastIndex=0;let m,l=0;while((m=re.exec(buf))){cb(m[0]);l=re.lastIndex}buf=buf.slice(l)};
+  if(e.method===8){const inf=new fflate.Inflate(feed);inf.push(dataOf(d,e),true)}else feed(dataOf(d,e),true);
+}
+function split(tx){const a=tx.indexOf('<sheetData>')+11,b=tx.lastIndexOf('</sheetData>');return[tx.slice(0,a),tx.slice(a,b),tx.slice(b)]}
+
+/* ---------- Reglas de las macros ---------- */
+const isE=v=>v!=null&&typeof v==='object', NA={e:'#N/A'}, NZ=v=>v==null?0:v;
+const K=v=>{if(v==null||isE(v))return'';if(typeof v==='string')return v.length?'T:'+v.toLowerCase():'';if(typeof v==='boolean')return'L:'+v;return'N:'+v};
+const num=v=>typeof v==='number'?v:(typeof v==='string'&&v.trim()!==''&&isFinite(v))?+v:null;
+const p2=n=>String(n).padStart(2,'0');
+const segs=d=>{let q=Math.floor((d-Math.floor(d))*86400+.5);return q>=86400?0:q};
+const hhmmss=d=>{const q=segs(d);return p2(q/3600|0)+':'+p2(q%3600/60|0)+':'+p2(q%60)};
+const fechaT=v=>{if(isE(v))return v;const d=num(v);if(d==null||d<0||d>=2958466)return String(v).slice(0,10);if(d<1)return'00/01/1900';
+  const t=new Date(Date.UTC(1899,11,30)+Math.floor(d)*864e5);return p2(t.getUTCDate())+'/'+p2(t.getUTCMonth()+1)+'/'+t.getUTCFullYear()};
+const horaT=v=>{if(isE(v))return v;const d=num(v);return d==null||d<0||d>=2958466?String(v).slice(-8):hhmmss(d)};
+function tramo(v){
+  if(isE(v))return v;let d;
+  if(typeof v==='number')d=v;else if(typeof v==='boolean')d=v?1:0;
+  else{const m=/(\d{1,2}):(\d{2})(?::(\d{2}))?/.exec(String(v));if(!m)return{e:'#VALUE!'};d=(+m[1]*3600+ +m[2]*60+(+m[3]||0))/86400}
+  if(d<0)return{e:'#NUM!'};
+  const h=segs(d)/3600|0;
+  return h>=8&&h<12?'TRAMO 1':h>=12&&h<16?'TRAMO 2':h>=16&&h<=20?'TRAMO 3':'FUERA DE HORARIO';
+}
+
+/* ---------- Reescritura de la hoja ---------- */
+function rewrite(body,ultima,cols,getOut){
+  const cs=new Set(cols),out=[];
+  const mk=(c,r,v,s)=>{if(v==null)return'';const ref=cl(c)+r,st=s?` s="${s}"`:'';
+    if(typeof v==='number')return`<c r="${ref}"${st}><v>${v}</v></c>`;
+    if(typeof v==='boolean')return`<c r="${ref}"${st} t="b"><v>${+v}</v></c>`;
+    if(isE(v))return`<c r="${ref}"${st} t="e"><v>${v.e}</v></c>`;
+    return`<c r="${ref}"${st} t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`};
+  const proc=(r,x)=>{
+    if(r<2)return x;
+    const mo=/^<row\b[^>]*>/.exec(x)[0],self=mo.endsWith('/>'),open=mo.replace(/ spans="[^"]*"/,'').replace(/\/>$/,'>');
+    const inner=self?'':x.slice(mo.length,-6),keep=[],sty={};
+    for(const m of inner.matchAll(CELL)){const c=ci(m[1]);
+      if(cs.has(c))sty[c]=(/^<c[^>]*?\ss="(\d+)"/.exec(m[0])||[])[1];else keep.push({c,x:m[0]})}
+    if(r<=ultima){const v=getOut(r);cols.forEach((c,i)=>{const z=mk(c,r,v[i],sty[c]);if(z)keep.push({c,x:z})})}
+    keep.sort((a,b)=>a.c-b.c);
+    return keep.length?open+keep.map(k=>k.x).join('')+'</row>':open.replace(/>$/,'/>');
+  };
+  let next=2;
+  for(const m of body.matchAll(ROW)){
+    const r=+/^<row\b[^>]*?\br="(\d+)"/.exec(m[0])[1];
+    for(;next<r&&next<=ultima;next++)out.push(proc(next,`<row r="${next}"/>`));
+    out.push(proc(r,m[0]));next=Math.max(next,r+1);
+  }
+  for(;next<=ultima;next++)out.push(proc(next,`<row r="${next}"/>`));
+  return out.join('');
+}
+
+/* ---------- Proceso principal ---------- */
+let file=null,result=null;
+const prog=(p,m)=>{$('#pb').style.width=p+'\%';$('#msg').textContent=m};
+const logm=m=>{const li=document.createElement('li');li.textContent=m;$('#lg').appendChild(li)};
+
+async function run(){
+  const doT=$('#cT').checked,doW=$('#cW').checked,t0=performance.now(),stats=[];
+  $('#er').classList.add('hide');$('#rc').classList.add('hide');$('#pc').classList.remove('hide');$('#lg').innerHTML='';$('#go').disabled=true;
+  try{
+    prog(3,'Leyendo archivo…');await tick();
+    const d=new Uint8Array(await file.arrayBuffer()),list=readZip(d),by=Object.fromEntries(list.map(e=>[e.name,e]));
+    const wb=text(d,by['xl/workbook.xml']),rl=text(d,by['xl/_rels/workbook.xml.rels']),sm={};
+    for(const s of wb.matchAll(/<sheet\b[^>]*>/g)){
+      const n=unesc(/name="([^"]*)"/.exec(s[0])[1]).toLowerCase(),id=/r:id="([^"]*)"/.exec(s[0])[1];
+      for(const r of rl.matchAll(/<Relationship\b[^>]*>/g))if(r[0].includes(`Id="${id}"`)){const t=/Target="([^"]*)"/.exec(r[0])[1].replace(/^\//,'');sm[n]=t.startsWith('xl/')?t:'xl/'+t}
+    }
+    const sh=n=>{const e=by[sm[n.toLowerCase()]];if(!e)throw new Error(`No existe la hoja '${n}'.`);return e};
+    const need=['SicaCenter'];if(doT)need.push('Telefonos','Reporte_VENTAS','TABLAS');if(doW)need.push('Tipificacaciones_WIN','Telefonos','Tipificaciones');
+    need.forEach(sh);
+    logm('Archivo leído y hojas verificadas');
+
+    prog(10,'Cargando textos compartidos…');await tick();
+    SST=[];if(by['xl/sharedStrings.xml'])for(const m of text(d,by['xl/sharedStrings.xml']).matchAll(/<si>([\s\S]*?)<\/si>/g)){let t='';m[1].replace(/<rPh[\s\S]*?<\/rPh>/g,'').replace(/<t[^>]*>([^<]*)<\/t>/g,(_,x)=>t+=x);SST.push(unesc(t))}
+
+    prog(18,'Leyendo SicaCenter (puede tardar)…');await tick();
+    const dS=new Map();
+    streamRows(d,sh('SicaCenter'),x=>{const[,a]=rowCells(x,9);const k=K(a[1]);if(k&&!dS.has(k))dS.set(k,[1,2,3,4,5,6,7,8,9].map(i=>NZ(a[i])))});
+    logm(`SicaCenter: ${dS.size.toLocaleString()} claves únicas`);
+
+    let dT,dJ,dG,dTip,dTel=new Map();
+    if(doT){
+      prog(36,'Leyendo Reporte_VENTAS y TABLAS…');await tick();
+      dJ=new Map();dG=new Map();dT=new Map();
+      streamRows(d,sh('Reporte_VENTAS'),x=>{const[,a]=rowCells(x,10);let k=K(a[10]);if(k&&!dJ.has(k))dJ.set(k,a[10]);k=K(a[7]);if(k&&!dG.has(k))dG.set(k,a[7])});
+      streamRows(d,sh('TABLAS'),x=>{const[,a]=rowCells(x,9);const k=K(a[6]);if(k&&!dT.has(k))dT.set(k,[1,2,3,4,5,6,8,9].map(i=>NZ(a[i])))});
+      logm('Reporte_VENTAS y TABLAS cargadas');
+    }
+    if(doW){
+      dTip=new Map();
+      streamRows(d,sh('Tipificaciones'),x=>{const[,a]=rowCells(x,12);const k=K(a[6]);if(k&&!dTip.has(k))dTip.set(k,[8,9,10,11,12].map(i=>NZ(a[i])))});
+      logm('Hoja Tipificaciones cargada');
+    }
+
+    const repl=new Map();
+    /* --- Telefonos --- */
+    const eT=sh('Telefonos');let tx=null,parts,ultT=1,tel=[],doc=[];
+    if(doT||doW){
+      prog(48,'Leyendo hoja Telefonos…');await tick();
+      tx=text(d,eT);parts=split(tx);tx=null;
+      for(const m of parts[1].matchAll(ROW)){
+        const[r,a]=rowCells(m[0],9);
+        if(a[1]!=null&&r>ultT)ultT=r;tel[r]=a[3];doc[r]=a[2];
+        const k=K(a[3]);if(k&&!dTel.has(k))dTel.set(k,[NZ(a[1]),NZ(a[2]),NZ(a[6]),NZ(a[7]),NZ(a[8])]);
+      }
+    }
+    if(doT){
+      prog(58,'Aplicando macro Telefonos…');await tick();
+      if(ultT<2)throw new Error('Telefonos: no hay registros en la columna A.');
+      const outT=[],cnt=new Map(),NE=['No Existe','No Existe','No Existe','No Existe','No Existe','No existe','Validar','Error'];
+      for(let r=2;r<=ultT;r++){
+        const kt=K(tel[r]),s=kt?dS.get(kt):null,L=s?s[5]:NA,M=s?(isE(s[7])?'PENDIENTE':s[7]):'PENDIENTE';
+        const t=dT.get(K(M))||NE,kd=K(doc[r]);
+        let ck=tel[r]==null||isE(tel[r])?'':String(tel[r]).toLowerCase(),Y=0;
+        if(ck){Y=(cnt.get(ck)||0)+1;cnt.set(ck,Y)}
+        outT[r]=[L,M,tramo(L),...t,kt&&dJ.has(kt)?dJ.get(kt):NA,kd&&dG.has(kd)?dG.get(kd):NA,Y];
+      }
+      const cols=[...Array(14)].map((_,i)=>12+i);
+      repl.set(eT.name,enc.encode(parts[0]+rewrite(parts[1],ultT,cols,r=>outT[r])+parts[2]));
+      stats.push(['Telefonos',ultT-1,'L:Y']);logm(`Macro Telefonos aplicada (${(ultT-1).toLocaleString()} filas)`);
+    }
+    parts=null;tel=null;doc=null;
+
+    /* --- Tipificacaciones_WIN --- */
+    if(doW){
+      prog(72,'Aplicando macro Tipificaciones WIN…');await tick();
+      const eW=sh('Tipificacaciones_WIN');tx=text(d,eW);const p=split(tx);tx=null;let ultW=1;const wc=[];
+      for(const m of p[1].matchAll(ROW)){const[r,a]=rowCells(m[0],3);if(a[3]!=null&&r>ultW)ultW=r;wc[r]=a[3]}
+      if(ultW<2)throw new Error('Tipificacaciones_WIN: no hay registros en la columna C.');
+      const outW=[];
+      for(let r=2;r<=ultW;r++){
+        const kt=K(wc[r]),tl=kt?dTel.get(kt):null,s=kt?dS.get(kt):null,o=[];
+        o[1]=tl&&!isE(tl[0])?tl[0]:'Num Fuera de Base';o[2]=tl&&!isE(tl[1])?tl[1]:'Falta # de DOC';
+        const q=Array(18);
+        if(s){q[6]=s[7];q[7]=s[8];q[8]=fechaT(s[5]);q[9]=horaT(s[5]);q[10]=s[1];q[11]=horaT(s[2]);q[12]=horaT(s[3]);q[13]=s[1];q[14]=s[4]}
+        else for(let j=6;j<=14;j++)q[j]=NA;
+        if(tl){q[15]=tl[2];q[16]=tl[3];q[17]=tl[4]}else{q[15]=q[16]=q[17]=NA}
+        const f=dTip.get(K(q[6]));
+        for(let j=0;j<5;j++)q[j+1]=f&&!isE(f[j])?f[j]:'Discador ';
+        outW[r]=[o[1],o[2],...q.slice(1)];
+      }
+      const cols=[1,2,...[...Array(17)].map((_,i)=>4+i)];
+      repl.set(eW.name,enc.encode(p[0]+rewrite(p[1],ultW,cols,r=>outW[r])+p[2]));
+      stats.push(['Tipificacaciones_WIN',ultW-1,'A, B y D:T']);logm(`Macro Tipificaciones WIN aplicada (${(ultW-1).toLocaleString()} filas)`);
+    }
+
+    prog(86,'Generando el archivo Excel (comprimiendo)…');await tick();
+    const drop=new Set();
+    if(by['xl/calcChain.xml']){drop.add('xl/calcChain.xml');
+      repl.set('[Content_Types].xml',enc.encode(text(d,by['[Content_Types].xml']).replace(/<Override\b[^>]*calcChain[^>]*\/>/,'')));
+      repl.set('xl/_rels/workbook.xml.rels',enc.encode(rl.replace(/<Relationship\b[^>]*calcChain[^>]*\/>/,'')));}
+    result=buildZip(d,list,repl,drop);
+    logm('Archivo generado');prog(100,'Listo');
+    $('#pc').classList.add('hide');$('#rc').classList.remove('hide');
+    const sec=((performance.now()-t0)/1000).toFixed(1);
+    $('#stats').innerHTML=stats.map(s=>`<div class="st"><h3>${s[0]}</h3><p>Filas procesadas: <b>${s[1].toLocaleString()}</b></p><p>Columnas: ${s[2]}</p></div>`).join('')+
+      `<div class="st" style="background:#f0f9ff; border-color:#bae6fd;"><h3 style="color:#0369a1">Resumen</h3><p style="color:#0284c7">Tiempo: <b>${sec} s</b></p><p style="color:#0284c7">Tamaño: ${(result.size/1048576).toFixed(1)} MB</p></div>`;
+  }catch(e){
+    console.error(e);$('#pc').classList.add('hide');const er=$('#er');er.textContent='Error: '+(e.message||e)+(/memory|allocation/i.test(e.message||'')?' — el archivo es muy grande para la memoria del navegador; prueba en Chrome de escritorio.':'');er.classList.remove('hide');
+  }
+  $('#go').disabled=false;
+}
+
+/* ---------- UI ---------- */
+function setFile(f){
+  if(!f)return;file=f;$('#fn').textContent=f.name;$('#fs').textContent=(f.size/1048576).toFixed(1)+' MB';$('#fi').classList.add('show');$('#go').disabled=false;
+}
+$('#drop').onclick=()=>$('#inp').click();
+$('#inp').onchange=e=>setFile(e.target.files[0]);
+['dragover','dragenter'].forEach(ev=>$('#drop').addEventListener(ev,e=>{e.preventDefault();$('#drop').classList.add('on')}));
+['dragleave','drop'].forEach(ev=>$('#drop').addEventListener(ev,e=>{e.preventDefault();$('#drop').classList.remove('on')}));
+$('#drop').addEventListener('drop',e=>setFile(e.dataTransfer.files[0]));
+$('#go').onclick=run;
+$('#dl').onclick=()=>{if(!result)return;const a=document.createElement('a');a.href=URL.createObjectURL(result);a.download=file.name.replace(/\.(xlsx|xlsm)$/i,'')+'_procesado.xlsx';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),60000)};
+</script>
+</body>
+</html>
